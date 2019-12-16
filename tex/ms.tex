@@ -44,7 +44,7 @@ The atmospheric transmission is taken from a file called \verb|ZenithExtinction-
 
 \begin{figure*}[ht]
         \includegraphics[width=7.0in]{gfa_total_throughput}
-    \caption{Total GFA throughput.}
+    \caption{Total GFA throughput as a function of wavelength.}
     \label{fig:total_throughput}
 \end{figure*}
 
@@ -117,9 +117,21 @@ FOCUS9 & 3 & H & 3.639 & 3.659 & DESI-4747-v2 & outer \\
 
 My gain measurements based on the 20191027 dome screen data are in very good agreement with those based on the lab data, although the former are $\sim$0.9\% higher than the corresponding lab gain measurements in the median. David Kirkby has also analyzed the same 20191027 dome screen data and was able to obtain even better agreement with the lab gain measurements (DESI-5315). We therefore adopt the lab gain measurements compiled from the various GFA acceptance reports when comparing our predicted zeropoint to the on-sky measurements. It seems clear that we should not expect our knowledge of the gains to be a significant limitation in the comparison between measured and predicted zeropoints.
 
+% need to explain 'all' versus 'outer' terminology in rightmost column of gain summary table
+
 \section{Input GFA On-sky Data}
 
-For this study, we use a series of 22 exposures
+For this study, we use a series of 22 exposures. (RA, Dec) =  These exposures were chosen for the following reasons:
+
+\begin{itemize}
+\item They were taken during a photometric time period.
+\item They were taken in reasonably good seeing -- the FWHM is typically
+\item They are taken in a region of high source density
+\item They are relatively long GFA exposures (the unique exposure times are 30 seconds and 60 seconds), further improving the density of well-detected sources.
+\item Very close to airmass = 1, minimizing impact of any errors in atmospheric transmission component of GFA throughput prediction.
+\end{itemize}
+
+% mention "dense fields" program name
 
 % check the 22 value above...
 
@@ -130,9 +142,11 @@ For this study, we use a series of 22 exposures
 % make clear that the analysis described here only pertains to the six in-focus guide cameras, and ignores the four out-of-focus cameras
 % perhaps in the future i can update the analysis to include checking the zeropoints of the focus cameras as well
 
+In this study we only consider the six in-focus guide cameras, and ignore the data from the four out of focus GFA cameras.
+
 \section{Source Catalogs}
 
-\section{PSF-based aperture correction}
+\section{PSF-based Aperture Correction}
 
 % maybe show an example PSF image?
 
@@ -142,7 +156,7 @@ The sky location of the frames used is outside of the DESI pre-imaging footprint
 
 \section{Zeropoint Values Obtained}
 
-Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras.
+Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints correspond to total light, night signal within some nominal aperture.
 
 % first appendix
 % confirming GFA exptime with star trails
@@ -152,7 +166,7 @@ Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s a
 \begin{center}
 \begin{table}[ht]
 \begin{tabular}{c | c | c | c | c}
-camera & amp & ZP (total raw ADU/s) & ZP (total e-/s) & assumed gain (e-/ADU, acceptance report) \\ \hline
+camera & amp & ZP (total raw ADU/s) & ZP (total e-/s) & assumed gain (e-/ADU, from acceptance report) \\ \hline
 GUIDE0 & E & 25.714 & 27.079 & 3.516 \\
 GUIDE0 & F & 25.689 & 27.063 & 3.545 \\
 GUIDE0 & G & 25.654 & 27.067 & 3.673 \\
