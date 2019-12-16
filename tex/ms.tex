@@ -40,19 +40,28 @@ In order to validate the system throughput as measured by the DESI GFA cameras, 
     \label{fig:throughput_factors}
 \end{figure*}
 
-The atmospheric transmission is taken from a file called \verb|ZenithExtinction-KPNO.fits|, found in the desimodel product\footnote{\url{https://desi.lbl.gov/svn/code/desimodel/trunk/data/inputs/throughput/ZenithExtinction-KPNO.fits}}. The Mayall telescope primary mirror reflectivity and corrector throughput were taken from ``DESI-347-v14 Throughput Noise SNR Calcs''. The GFA filter transmission was extracted from ``DESI-1297 GFA Filter verification data''. The GFA CCD QE was extracted from the e2v data sheet ``CCD230-42 Back Illuminated Scientific CCD Sensor'', specifically the plot on page 4. Note that the DESI GFA detectors have the `Basic midband coating' option (i.e., the green line in the data sheet's QE plot).
+The atmospheric transmission is taken from a file called \verb|ZenithExtinction-KPNO.fits|, found in the desimodel product\footnote{\url{https://desi.lbl.gov/svn/code/desimodel/trunk/data/inputs/throughput/ZenithExtinction-KPNO.fits}}. The Mayall telescope primary mirror reflectivity and corrector throughput were taken from ``DESI-347-v14 Throughput Noise SNR Calcs''. The GFA filter transmission was extracted from ``DESI-1297 GFA Filter verification data''. The GFA CCD QE was extracted from the e2v data sheet ``CCD230-42 Back Illuminated Scientific CCD Sensor'', specifically the plot on page 4. Note that the DESI GFA detectors have the `Basic midband coating' option (i.e., the green line in the data sheet's QE plot). The resulting total throughput is shown in Figure \ref{fig:total_throughput}.
+
+\begin{figure*}[ht]
+        \includegraphics[width=7.0in]{gfa_total_throughput}
+    \caption{Total GFA throughput.}
+    \label{fig:total_throughput}
+\end{figure*}
 
 % try to figure out where the vignetting value came from...
 
-% when calculating the zeropoint, the mirror area also comes into the equation, so i should quote the mirror area assumed and where that came from
+In order to use the total throughput curve to calculate a predicted zeropoint in AB magnitudes, we additionally need to take into account the mirror area. We adopt a value of 8.66 square meters for the Mayall primary mirror area based on DESI-347-v15. Combining the throughput curve, the definition of the AB magnitude system, and the Mayall primary mirror area we calculate a predicted GFA zeropoint of $r$ = 27.00 AB for a source with total detected signal of 1 electron per second (assuming airmass = 1). This computation is run using the following command:
 
-% mention the code incantation that was run to get the predicted zeropoint.
+\verb|calc_ci_zeropoint, /gfa|
 
-% add the plot of the predicted total throughput as a function of wavelength?
+\noindent
+Where the \verb|calc_ci_zeropoint.pro| code can be found in my \verb|ci_throughput| GitHub repository\footnote{\url{https://github.com/ameisner/ci_throughput}}.
+
+% could add a table listing file name used for each component of the throughput
 
 \section{GFA Gain}
 
-Before we can compare on-sky GFA measurements to our predicted zeropoint, we need to have accurate knowledge of how to convert from ADU (units of the raw GFA data) to electrons.
+Before we can compare on-sky GFA measurements to our predicted zeropoint, we need to have accurate knowledge of how to convert from ADU (units of the raw GFA data) to electrons. Lab-measured GFA gains are available in a series of DESI DocDB entries, and a set of Mayall dome screen data were also taken specifically to enable gain measurements on 20191027. My gain measurements from the post-installation dome screen data are documented on the DESI wiki\footnote{\url{https://desi.lbl.gov/trac/wiki/Commissioning/Planning/gfachar/gain_20191027}}. The lab measurements and 
 
 % reference my desi-commiss e-mail and wiki page about this
 % reference DocDB entries for acceptance reports
@@ -77,6 +86,8 @@ Before we can compare on-sky GFA measurements to our predicted zeropoint, we nee
 % maybe show an example image?
 
 \section{Pan-STARRS Comparison}
+
+The sky location of the frames used is outside of the DESI pre-imaging footprint, but does have Pan-STARRS $r$ band data available.
 
 \section{Zeropoint Values Obtained}
 
