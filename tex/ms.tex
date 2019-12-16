@@ -61,20 +61,67 @@ Where the \verb|calc_ci_zeropoint.pro| code can be found in my \verb|ci_throughp
 
 \section{GFA Gain}
 
-Before we can compare on-sky GFA measurements to our predicted zeropoint, we need to have accurate knowledge of how to convert from ADU (units of the raw GFA data) to electrons. Lab-measured GFA gains are available in a series of DESI DocDB entries, and a set of Mayall dome screen data were also taken specifically to enable gain measurements on 20191027. My gain measurements from the post-installation dome screen data are documented on the DESI wiki\footnote{\url{https://desi.lbl.gov/trac/wiki/Commissioning/Planning/gfachar/gain_20191027}}. The lab measurements and 
+Before we can compare on-sky GFA measurements to our predicted zeropoint, we need to have accurate knowledge of how to convert from ADU (units of the raw GFA data) to electrons. Lab-measured GFA gains are available in a series of DESI DocDB entries, and a set of Mayall dome screen data were also taken specifically to enable post-installation gain measurements on 20191027. My gain measurements from the post-installation dome screen data are documented on the DESI wiki\footnote{\url{https://desi.lbl.gov/trac/wiki/Commissioning/Planning/gfachar/gain_20191027}}. The lab measurements and my dome screen measurements are listed in Table \ref{tab:gains}.
 
-% reference my desi-commiss e-mail and wiki page about this
-% reference DocDB entries for acceptance reports
-% table for assumed gains?
-% also David K's DocDB entry that includes his gain measurements
+\begin{center}
+\begin{table}[ht]
+\begin{tabular}{c | c | c | c | c | c | c}
+EXTNAME & GFA device & amp & 20191027 gain (e-/ADU) &  acceptance gain (e-/ADU) & acceptance ref. &  region \\ \hline
+GUIDE0 &       10 & E & 3.516 & 3.516 & DESI-4750-v1 & all \\
+GUIDE0 &       10 & F & 3.575 & 3.545 & DESI-4750-v1 & all \\
+GUIDE0 &       10 & G & 3.714 & 3.673 & DESI-4750-v1 & all \\
+GUIDE0 &       10 & H & 3.581 & 3.574 & DESI-4750-v1 & all \\
+FOCUS1 &        5 & E & 3.589 & 3.559 & DESI-4675-v1 & outer \\
+FOCUS1 &        5 & F & 3.790 & 3.712 & DESI-4675-v1 & outer \\
+FOCUS1 &        5 & G & 3.686 & 3.644 & DESI-4675-v1 & outer \\
+FOCUS1 &        5 & H & 3.867 & 3.795 & DESI-4675-v1 & outer \\
+GUIDE2 &        6 & E & 3.686 & 3.668 & DESI-4680-v1 & all \\
+GUIDE2 &        6 & F & 3.763 & 3.708 & DESI-4680-v1 & all \\
+GUIDE2 &        6 & G & 3.716 & 3.673 & DESI-4680-v1 & all \\
+GUIDE2 &        6 & H & 3.788 & 3.733 & DESI-4680-v1 & all \\
+GUIDE3 &        2 & E & 3.687 & 3.669 & DESI-4665-v1 & all \\
+GUIDE3 &        2 & F & 3.624 & 3.560 & DESI-4665-v1 & all \\
+GUIDE3 &        2 & G & 3.852 & 3.785 & DESI-4665-v1 & all \\
+GUIDE3 &        2 & H & 3.785 & 3.729 & DESI-4665-v1 & all \\
+FOCUS4 &        7 & E & 3.766 & 3.798 & DESI-4713-v1 & outer \\
+FOCUS4 &        7 & F & 3.824 & 3.761 & DESI-4713-v1 & outer \\
+FOCUS4 &        7 & G & 3.765 & 3.731 & DESI-4713-v1 & outer \\
+FOCUS4 &        7 & H & 3.817 & 3.747 & DESI-4713-v1 & outer \\
+GUIDE5 &        8 & E & 3.715 & 3.718 & DESI-4716-v1 & all \\
+GUIDE5 &        8 & F & 3.792 & 3.741 & DESI-4716-v1 & all \\
+GUIDE5 &        8 & G & 3.761 & 3.733 & DESI-4716-v1 & all \\
+GUIDE5 &        8 & H & 3.779 & 3.787 & DESI-4716-v1 & all \\
+FOCUS6 &       13 & E & 3.744 & 3.740 & DESI-4908-v1 & outer \\
+FOCUS6 &       13 & F & 3.715 & 3.670 & DESI-4908-v1 & outer \\
+FOCUS6 &       13 & G & 3.720 & 3.698 & DESI-4908-v1 & outer \\
+FOCUS6 &       13 & H & 3.749 & 3.732 & DESI-4908-v1 & outer \\
+GUIDE7 &        1 & E & 3.814 & 3.863 & DESI-4662-v1 & all \\
+GUIDE7 &        1 & F & 3.606 & 3.629 & DESI-4662-v1 & all \\
+GUIDE7 &        1 & G & 3.987 & 4.043 & DESI-4662-v1 & all \\
+GUIDE7 &        1 & H & 3.906 & 3.967 & DESI-4662-v1 & all \\
+GUIDE8 &        4 & E & 3.792 & 3.740 & DESI-4672-v1 & all \\
+GUIDE8 &        4 & F & 3.855 & 3.793 & DESI-4672-v1 & all \\
+GUIDE8 &        4 & G & 3.610 & 3.601 & DESI-4672-v1 & all \\
+GUIDE8 &        4 & H & 3.728 & 3.698 & DESI-4672-v1 & all \\
+FOCUS9 &        3 & E & 3.641 & 3.586 & DESI-4747-v2 & outer \\
+FOCUS9 &        3 & F & 3.659 & 3.612 & DESI-4747-v2 & outer \\
+FOCUS9 &        3 & G & 3.823 & 3.763 & DESI-4747-v2 & outer \\
+FOCUS9 &        3 & H & 3.639 & 3.659 & DESI-4747-v2 & outer \\
+\end{tabular}
+\caption{Comparison of gain measurements from pre-installation lab data taken as part of the GFA acceptance process (R. Casas) and post-installation dome screen data taken on 20191027.}
+\label{tab:gains}
+\end{table}
+\end{center}
 
-% say that in the end we just adopt the acceptance report gains since our measurements post-installation are effectively the same at the ~1% level
+% could take out GUIDE cameras from this table...
+
+My gain measurements based on the 20191027 dome screen data are $\sim$0.9\% higher than the corresponding lab gain measurements in the median. David Kirkby has also analyzed the same 20191027 dome screen data and was able to obtain even better agreement with the lab gain measurements (DESI-5315). We therefore adopt the lab gain measurements compiled from the various GFA acceptance reports when comparing out predicted zeropoint to the on-sky measurements. It seems clear that we should not expect our knowledge of the gains to be a significant limitation in the comparison between measured and predicted zeropoints.
 
 \section{Input GFA On-sky Data}
 
 % justification for why this is a good data set to use
 %     very close to airmass = 1
-%     30-60 second exposure times
+%     the unique exposure times in this data set are 30-60 seconds
 
 % make clear that the analysis described here only pertains to the six in-focus guide cameras, and ignores the four out-of-focus cameras
 % perhaps in the future i can update the analysis to include checking the zeropoints of the focus cameras as well
@@ -83,7 +130,7 @@ Before we can compare on-sky GFA measurements to our predicted zeropoint, we nee
 
 \section{PSF-based aperture correction}
 
-% maybe show an example image?
+% maybe show an example PSF image?
 
 \section{Pan-STARRS Comparison}
 
