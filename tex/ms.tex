@@ -121,7 +121,7 @@ My gain measurements based on the 20191027 dome screen data are in very good agr
 
 \section{Input GFA On-sky Data}
 
-For this study, we use a series of 22 exposures. (RA, Dec) =  These exposures were chosen for the following reasons:
+For this throughput study, we use a set of 22 GFA exposures taken on 20191025. The exposures have 21338 $\le$ EXPID $\le$ 21360, with EXPID = 21350 omitted because of its short 1 second exposure time. The program name (PROGRAM keyword header parameter) of this set of exposures is ``dense fields''. These exposures are all centered in the vicinity of (RA, Dec) =  (80$^{\circ}$, 30$^{\circ}$), which is near the Galactic anticenter at ($l_{gal}$, $b_{gal}$) $\sim$ (176, $-4$). These exposures were chosen for the following reasons:
 
 \begin{itemize}
 \item They were taken during a photometric time period.
@@ -129,6 +129,8 @@ For this study, we use a series of 22 exposures. (RA, Dec) =  These exposures we
 \item They are taken in a region of high source density
 \item They are relatively long GFA exposures (the unique exposure times are 30 seconds and 60 seconds), further improving the density of well-detected sources.
 \item Very close to airmass = 1, minimizing impact of any errors in atmospheric transmission component of GFA throughput prediction.
+\item All six cameras worth of guide GFA images are available for all exposures in this sequence.
+\item The exposures were dithered at a scale of $\sim$30$''$ per coordinate, so that we are not always sampling the same stars at the same GFA pixel locations during ever single exposure.
 \end{itemize}
 
 % mention "dense fields" program name
@@ -146,13 +148,17 @@ In this study we only consider the six in-focus guide cameras, and ignore the da
 
 \section{Source Catalogs}
 
-\section{PSF-based Aperture Correction}
+% mention PSF-based Aperture Correction
 
 % maybe show an example PSF image?
 
 \section{Pan-STARRS Comparison}
 
 The sky location of the frames used is outside of the DESI pre-imaging footprint, but does have Pan-STARRS $r$ band data available.
+
+% define m_inst
+
+% what is the match radius used?
 
 \section{Zeropoint Values Obtained}
 
@@ -199,6 +205,21 @@ GUIDE8 & H & 25.652 & 27.072 & 3.698 \\
 
 \appendix
 
+\subsection{Confirming That ADU Zeropoints Track Gain as Expected}
+Amp pairs E/F and G/H should be at approximately the same radial distance from the focal plane center for all cameras. Assuming for each camera that within each of these amp pairs the average vignetting, QE and filter transmission are all the same, then the difference in zeropoint for a 1 ADU source should track the difference in gain, with larger gain corresponding lower (brighter) ADU zeropoint magnitude. Based on these assumptions and the measured gains, we can predict the difference in zeropoints for amp pairs E/F and G/H and check whether this correlates with the measured differences in zeropoints. The two scatter plots below summarize this analysis, with one plot for the E/F amp pair and one plot for the G/H amp pair. Each data point in each plot represents one guide GFA camera. The plots show that the measured ADU zeropoints do track fairly well with expectations based on the gain differences. The lab-measured GFA acceptance report gains were used in making these plots.
+
+\begin{figure*}[ht]
+        \includegraphics[width=7.0in]{zp_adu_gain_correlation-EF.png}
+    \caption{test}
+    \label{fig:ampsEF}
+\end{figure*}
+
+\begin{figure*}[ht]
+        \includegraphics[width=7.0in]{zp_adu_gain_correlation-GH.png}
+    \caption{test}
+    \label{fig:ampsEF}
+\end{figure*}
+
 \section{Confirming GFA EXPTIME}
 
 A key assumption underlying our comparison of the measured GFA zeropoints to our zeropoint prediction is that we are using the correct GFA exposure time in computing the signal as a rate in detected electrons per second. GFA exposure times in seconds are accessed via the EXPTIME header keyword. Given the discussion about GFA timestamp oddities (e.g., [desi-commiss 2976]) and the unshuttered cameras, I decided to check how well the integration time agrees with the reported EXPTIME. It's also particularly interesting to double check EXPTIME because there are relatively few ways that the measured GFA zeropoint could be slightly \textit{deeper} than the prediction (as we have found, by 6\%), but one such possibility is that the true GFA integration time is longer than what we are assuming based on the reported GFA EXPTIME values.  
@@ -208,5 +229,7 @@ To address this, I measured the length of star trails in the 5 second untracked 
 \section{Per-camera, per-amp scatter plots}
 
 Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study.
+
+% say what the vertical yellow line means...
 
 \end{document}
