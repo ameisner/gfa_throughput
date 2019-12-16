@@ -16,7 +16,7 @@
 
 \begin{center}
 \Large
-DESI GFA Throughput
+DESI GFA Throughput Validation
 \end{center}
 
 \normalsize
@@ -29,7 +29,30 @@ Aaron Meisner
 
 % mention the factors that play in here
 
+In order to validate the system throughput as measured by the DESI GFA cameras, we must first perform an analysis to determine the expected throughput and photometric zeropoint. The primary goal of this analysis is to predict the $r$ band AB magnitude of a source that would correspond to a total detected DESI GFA signal of 1 electron per second. The factors that contribute to determining the DESI GFA throughput are: the atmosphere, the Mayall telescope primary mirror reflectivity, the corrector throughput (including vignetting at the radius of the GFA cameras), the GFA $r$ band filter transmission profile and the GFA detector quantum efficiency (QE). These individual factors are overplotted together in Figure \ref{fig:throughput_factors}.
+
+% calculating the fractional throughput curve: atmosphere, mirror reflectivity, corrector throughput / vignetting, GFA filter transmission, GFA CCD QE
+
+
+\begin{figure*}[ht]
+        \includegraphics[width=7.0in]{gfa_throughput_factors}
+    \caption{Summary of the multiplicative factors that contribute to determining the total DESI GFA throughput as a function of wavelength.}
+    \label{fig:throughput_factors}
+\end{figure*}
+
+The atmospheric transmission is taken from a file called \verb|ZenithExtinction-KPNO.fits|, found in the desimodel product\footnote{\url{https://desi.lbl.gov/svn/code/desimodel/trunk/data/inputs/throughput/ZenithExtinction-KPNO.fits}}. The Mayall telescope primary mirror reflectivity and corrector throughput were taken from ``DESI-347-v14 Throughput Noise SNR Calcs''. The GFA filter transmission was extracted from ``DESI-1297 GFA Filter verification data''. The GFA CCD QE was extracted from the e2v data sheet ``CCD230-42 Back Illuminated Scientific CCD Sensor'', specifically the plot on page 4. Note that the DESI GFA detectors have the `Basic midband coating' option (i.e., the green line in the data sheet's QE plot).
+
+% try to figure out where the vignetting value came from...
+
+% when calculating the zeropoint, the mirror area also comes into the equation, so i should quote the mirror area assumed and where that came from
+
+% mention the code incantation that was run to get the predicted zeropoint.
+
+% add the plot of the predicted total throughput as a function of wavelength?
+
 \section{GFA Gain}
+
+Before we can compare on-sky GFA measurements to our predicted zeropoint, we need to have accurate knowledge of how to convert from ADU (units of the raw GFA data) to electrons.
 
 % reference my desi-commiss e-mail and wiki page about this
 % reference DocDB entries for acceptance reports
@@ -43,6 +66,9 @@ Aaron Meisner
 % justification for why this is a good data set to use
 %     very close to airmass = 1
 %     30-60 second exposure times
+
+% make clear that the analysis described here only pertains to the six in-focus guide cameras, and ignores the four out-of-focus cameras
+% perhaps in the future i can update the analysis to include checking the zeropoints of the focus cameras as well
 
 \section{Source Catalogs}
 
