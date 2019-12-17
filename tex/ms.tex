@@ -29,7 +29,7 @@ Aaron Meisner
 
 % mention the factors that play in here
 
-In order to validate the system throughput as measured by the DESI GFA cameras, we must first perform an analysis to determine the expected throughput and photometric zeropoint. The primary goal of this analysis is to predict the $r$ band AB magnitude of a source that would correspond to a total detected DESI GFA signal of 1 electron per second. The factors that contribute to determining the DESI GFA throughput are: the atmosphere, the Mayall telescope primary mirror reflectivity, the corrector throughput (including vignetting at the radius of the GFA cameras), the GFA $r$ band filter transmission profile and the GFA detector quantum efficiency (QE). These individual factors are overplotted together in Figure \ref{fig:throughput_factors}.
+In order to validate the system throughput as measured by the DESI GFA cameras, we must first perform an analysis to determine the expected throughput and photometric zeropoint. The primary goal of this analysis is to predict the $r$ band AB magnitude of a source that would correspond to a total detected DESI GFA signal of 1 electron per second. The factors that contribute to determining the DESI GFA throughput are: the atmosphere, the Mayall telescope primary mirror reflectivity, the corrector throughput (including vignetting at the radius of the GFA cameras), the GFA $r$ band filter transmission profile and the GFA detector quantum efficiency (QE). For the radius of the GFA cameras, we use 1.574$^{\circ}$, based on template WCS solutions trained on Gaia star locations in real GFA images. These individual factors are overplotted together in Figure \ref{fig:throughput_factors}.
 
 % calculating the fractional throughput curve: atmosphere, mirror reflectivity, corrector throughput / vignetting, GFA filter transmission, GFA CCD QE
 
@@ -40,7 +40,7 @@ In order to validate the system throughput as measured by the DESI GFA cameras, 
     \label{fig:throughput_factors}
 \end{figure*}
 
-The atmospheric transmission is taken from a file called \verb|ZenithExtinction-KPNO.fits|, found in the desimodel product\footnote{\url{https://desi.lbl.gov/svn/code/desimodel/trunk/data/inputs/throughput/ZenithExtinction-KPNO.fits}}. The Mayall telescope primary mirror reflectivity and corrector throughput were taken from ``DESI-347-v14 Throughput Noise SNR Calcs''. The GFA filter transmission was extracted from ``DESI-1297 GFA Filter verification data''. The GFA CCD QE was extracted from the e2v data sheet ``CCD230-42 Back Illuminated Scientific CCD Sensor'', specifically the plot on page 4. Note that the DESI GFA detectors have the `Basic midband coating' option (i.e., the green line in the data sheet's QE plot). The resulting total throughput is shown in Figure \ref{fig:total_throughput}.
+The atmospheric transmission is taken from a file called \verb|ZenithExtinction-KPNO.fits|, found in the desimodel product\footnote{\url{https://desi.lbl.gov/svn/code/desimodel/trunk/data/inputs/throughput/ZenithExtinction-KPNO.fits}}. The Mayall telescope primary mirror reflectivity and corrector throughput and vignetting were taken from ``DESI-347-v14 Throughput Noise SNR Calcs''. The GFA filter transmission was extracted from ``DESI-1297 GFA Filter verification data''. The GFA CCD QE was extracted from the e2v data sheet ``CCD230-42 Back Illuminated Scientific CCD Sensor'', specifically the plot on page 4. Note that the DESI GFA detectors have the `Basic midband coating' option (i.e., the green line in the data sheet's QE plot). The resulting total throughput is shown in Figure \ref{fig:total_throughput}.
 
 \begin{figure*}[ht]
         \includegraphics[width=7.0in]{gfa_total_throughput}
@@ -50,7 +50,7 @@ The atmospheric transmission is taken from a file called \verb|ZenithExtinction-
 
 % try to figure out where the vignetting value came from...
 
-In order to use the total throughput curve to calculate a predicted zeropoint in AB magnitudes, we additionally need to take into account the mirror area. We adopt a value of 8.66 square meters for the Mayall primary mirror area based on DESI-347-v15. Combining the throughput curve, the definition of the AB magnitude system, and the Mayall primary mirror area we calculate a predicted GFA zeropoint of $r$ = 27.00 AB for a source with total detected signal of 1 electron per second (assuming airmass = 1). This computation is run using the following command:
+In order to use the total throughput curve to calculate a predicted zeropoint in AB magnitudes, we additionally need to take into account the mirror area. We adopt a value of 8.66 square meters for the Mayall primary mirror area based on DESI-347-v15. Combining the throughput curve, the definition of the AB magnitude system, and the Mayall primary mirror area we calculate a predicted GFA zeropoint of $r$ = 27.026 AB for a source with total detected signal of 1 electron per second (assuming airmass = 1). This computation is run using the following command:
 
 \verb|calc_ci_zeropoint, /gfa|
 
@@ -133,15 +133,6 @@ For this throughput study, we use a set of 22 GFA exposures taken on 20191025. T
 \item The exposures were dithered at a scale of $\sim$30$''$ per coordinate, so that we are not always sampling the same stars at the same GFA pixel locations during ever single exposure.
 \end{itemize}
 
-% mention "dense fields" program name
-
-% check the 22 value above...
-
-% justification for why this is a good data set to use
-%     very close to airmass = 1
-%     the unique exposure times in this data set are 30-60 seconds
-
-% make clear that the analysis described here only pertains to the six in-focus guide cameras, and ignores the four out-of-focus cameras
 % perhaps in the future i can update the analysis to include checking the zeropoints of the focus cameras as well
 
 In this study we only consider the six in-focus guide cameras, and ignore the data from the four out of focus GFA cameras.
@@ -162,7 +153,7 @@ The sky location of the frames used is outside of the DESI pre-imaging footprint
 
 \section{Zeropoint Values Obtained}
 
-Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints correspond to total light, night signal within some nominal aperture.
+Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints correspond to total light, night signal within some nominal aperture. The median zeropoint in terms of e-/second is $r$ = 27.062 AB. This is slightly (3.4\%) deeper than the predicted zeropoint of $r$ = 27.026 AB for a source with total detected signal of 1 e-/second.
 
 % first appendix
 % confirming GFA exptime with star trails
@@ -203,8 +194,6 @@ GUIDE8 & H & 25.652 & 27.072 & 3.698 \\
 \end{table}
 \end{center}
 
-\appendix
-
 \subsection{Confirming That ADU Zeropoints Track Gain as Expected}
 Amp pairs E/F and G/H should be at approximately the same radial distance from the focal plane center for all cameras. Assuming for each camera that within each of these amp pairs the average vignetting, QE and filter transmission are all the same, then the difference in zeropoint for a 1 ADU source should track the difference in gain, with larger gain corresponding lower (brighter) ADU zeropoint magnitude. Based on these assumptions and the measured gains, we can predict the difference in zeropoints for amp pairs E/F and G/H and check whether this correlates with the measured differences in zeropoints. The two scatter plots below summarize this analysis, with one plot for the E/F amp pair and one plot for the G/H amp pair. Each data point in each plot represents one guide GFA camera. The plots show that the measured ADU zeropoints do track fairly well with expectations based on the gain differences. The lab-measured GFA acceptance report gains were used in making these plots.
 
@@ -220,9 +209,11 @@ Amp pairs E/F and G/H should be at approximately the same radial distance from t
     \label{fig:ampsEF}
 \end{figure*}
 
+\appendix
+
 \section{Confirming GFA EXPTIME}
 
-A key assumption underlying our comparison of the measured GFA zeropoints to our zeropoint prediction is that we are using the correct GFA exposure time in computing the signal as a rate in detected electrons per second. GFA exposure times in seconds are accessed via the EXPTIME header keyword. Given the discussion about GFA timestamp oddities (e.g., [desi-commiss 2976]) and the unshuttered cameras, I decided to check how well the integration time agrees with the reported EXPTIME. It's also particularly interesting to double check EXPTIME because there are relatively few ways that the measured GFA zeropoint could be slightly \textit{deeper} than the prediction (as we have found, by 6\%), but one such possibility is that the true GFA integration time is longer than what we are assuming based on the reported GFA EXPTIME values.  
+A key assumption underlying our comparison of the measured GFA zeropoints to our zeropoint prediction is that we are using the correct GFA exposure time in computing the signal as a rate in detected electrons per second. GFA exposure times in seconds are accessed via the EXPTIME header keyword. Given the discussion about GFA timestamp oddities (e.g., [desi-commiss 2976]) and the unshuttered cameras, I decided to check how well the integration time agrees with the reported EXPTIME. It's also particularly interesting to double check EXPTIME because there are relatively few ways that the measured GFA zeropoint could be slightly \textit{deeper} than the prediction (as we have found, by $\sim$3-4\%), but one such possibility is that the true GFA integration time is longer than what we are assuming based on the reported GFA EXPTIME values.  
 
 To address this, I measured the length of star trails in the 5 second untracked exposure EXPID = 24467 at zenith. I find an average trail length in GUIDE2 and GUIDE7 of 62.4 asec. For comparison, the length of the sidereal day and Dec give me a prediction of 63.8 asec trails during 5 seconds. So the prediction is 2.3\% larger than the measurement. This could certainly be within the error margin of my measurement, but the agreement would be better if I assumed that EXPTIME is equal to the integration time plus the $\sim$100 ms time to shift the active image area's charge rather than simply the integration time (0.1 s / 5 s = 2\%). Regardless, this seems like quite good agreement, and any issue at the $\sim$100 ms level would result in a negligible change to my derived zeropoints, which are based on images with relatively long 30-60 second exposure times.
 
@@ -231,5 +222,6 @@ To address this, I measured the length of star trails in the 5 second untracked 
 Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study.
 
 % say what the vertical yellow line means...
+% say what the red line means, emphasize that its slope is fixed to be exactly 1, not fit to match the data
 
 \end{document}
