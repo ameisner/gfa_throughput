@@ -113,20 +113,21 @@ FOCUS9 & 3 & H & 3.639 & 3.659 & DESI-4747-v2 & outer \\
 \end{table}
 \end{center}
 
-% could take out GUIDE cameras from this table...
+% could take out FOCUS cameras from this table...
 
 My gain measurements based on the 20191027 dome screen data are in very good agreement with those based on the lab data, although the former are $\sim$0.9\% higher than the corresponding lab gain measurements in the median. David Kirkby has also analyzed the same 20191027 dome screen data and was able to obtain even better agreement with the lab gain measurements (DESI-5315). We therefore adopt the lab gain measurements compiled from the various GFA acceptance reports when comparing our predicted zeropoint to the on-sky measurements. It seems clear that we should not expect our knowledge of the gains to be a significant limitation in the comparison between measured and predicted zeropoints.
 
 % need to explain 'all' versus 'outer' terminology in rightmost column of gain summary table
 
 \section{Input GFA On-sky Data}
+\label{sec:input_data}
 
 For this throughput study, we use a set of 22 GFA exposures taken on 20191025. The exposures have 21338 $\le$ EXPID $\le$ 21360, with EXPID = 21350 omitted because of its short 1 second exposure time. The program name (PROGRAM keyword header parameter) of this set of exposures is ``dense fields''. These exposures are all centered in the vicinity of (RA, Dec) =  (80$^{\circ}$, 30$^{\circ}$), which is near the Galactic anticenter at ($l_{gal}$, $b_{gal}$) $\sim$ (176, $-4$). These exposures were chosen for the following reasons:
 
 \begin{itemize}
 \item They were taken during a photometric time period.
 \item They were taken in reasonably good seeing -- the FWHM is typically
-\item They are taken in a region of high source density
+\item They are taken in a region of high source density. This provides more sources to compare against PS1, better assurance of successful astrometric calibration, and enables good PSF modeling. 
 \item They are relatively long GFA exposures (the unique exposure times are 30 seconds and 60 seconds), further improving the density of well-detected sources.
 \item Very close to airmass = 1, minimizing impact of any errors in atmospheric transmission component of GFA throughput prediction.
 \item All six cameras worth of guide GFA images are available for all exposures in this sequence.
@@ -139,9 +140,9 @@ In this study we only consider the six in-focus guide cameras, and ignore the da
 
 \section{Source Catalogs}
 
-% mention PSF-based Aperture Correction
+Source detection and astrometric calibration were performed with the \verb|gfa_reduce| GFA off-line reduction package for each camera of each GFA exposure discussed in $\S$\ref{sec:input_data}. Astrometric calibration is necessary in order to identify the correct PS1 match to each GFA detection. Astrometric calibration was successful for all cameras of all exposures. For this study, we perform aperture photometry in a 5 pixel radius circular (in pixel space) aperture. We then correct this aperture photometry to be as close as possible to ``total light''. This is accomplished by first building a PSF model for each guide camera of each GFA exposure, then using this PSF model to compute an aperture correction from the 5 pixel radius aperture to total light within the full extent of the PSF model, then multiplying the aperture photometry by this aperture correction factor. Each PSF model is 61 pixels on a side. The fluxes are measured in raw ADU so as to avoid baking in a specific flat field correction, given that different people may use different flat field corrections and/or that the master flat could evolve over time as more calibration data are obtained.
 
-% maybe show an example PSF image?
+The per-exposure catalogs have been concatenated and uploaded as a supplementary file \verb|filename.fits|. The aperture fluxes in raw ADU are in the column named COUNTS\_PER\_SECOND and the aperture correction factor is in a column named APCORR\_FAC.
 
 \section{Pan-STARRS Comparison}
 
@@ -151,14 +152,11 @@ The sky location of the frames used is outside of the DESI pre-imaging footprint
 
 % what is the match radius used?
 
+Since the sky location being considered is in the Galactic plane and the comparison sources being used are not especially faint, we assume that all matched sources are pointlike stars rather than extended galaxies. The version of the PS1 catalog being used (`fitscat\_qz\_trim') was also constructed with a star-galaxy separation metric cut meant to retain only stars, further indicating the lack of a need for attempting to make source morphology corrections.
+
 \section{Zeropoint Values Obtained}
 
 Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints correspond to total light, night signal within some nominal aperture. The median zeropoint in terms of e-/second is $r$ = 27.062 AB. This is slightly (3.4\%) deeper than the predicted zeropoint of $r$ = 27.026 AB for a source with total detected signal of 1 e-/second.
-
-% first appendix
-% confirming GFA exptime with star trails
-
-% second appendix all of the per-camera per-amp scatter plots of GFA sources
 
 \begin{center}
 \begin{table}[ht]
@@ -219,7 +217,7 @@ To address this, I measured the length of star trails in the 5 second untracked 
 
 \section{Per-camera, per-amp scatter plots}
 
-Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study.
+Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study. The vertical yellow line indicates the magnitude threshold fainter than which it was considered safe from potential saturation/nonlinearity to use the GFA magnitudes. In each case the red line is fixed to have a slope of unity (the slope is not fit as a free parameter), and the y axis offset is set to the median of the difference between the PS1 AB magnitudes and the instrumental magnitudes for (sufficiently faint) matched sources.
 
 % say what the vertical yellow line means...
 % say what the red line means, emphasize that its slope is fixed to be exactly 1, not fit to match the data
