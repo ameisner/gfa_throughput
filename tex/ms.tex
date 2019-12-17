@@ -27,12 +27,7 @@ Aaron Meisner
 
 \section{GFA Throughput Prediction}
 
-% mention the factors that play in here
-
-In order to validate the system throughput as measured by the DESI GFA cameras, we must first perform an analysis to determine the expected throughput and photometric zeropoint. The primary goal of this analysis is to predict the $r$ band AB magnitude of a source that would correspond to a total detected DESI GFA signal of 1 electron per second. The factors that contribute to determining the DESI GFA throughput are: the atmosphere, the Mayall telescope primary mirror reflectivity, the corrector throughput (including vignetting at the radius of the GFA cameras), the GFA $r$ band filter transmission profile and the GFA detector quantum efficiency (QE). For the radius of the GFA cameras, we use 1.574$^{\circ}$, based on template WCS solutions trained on Gaia star locations in real GFA images. These individual factors are overplotted together in Figure \ref{fig:throughput_factors}.
-
-% calculating the fractional throughput curve: atmosphere, mirror reflectivity, corrector throughput / vignetting, GFA filter transmission, GFA CCD QE
-
+In order to validate the system throughput as measured by the DESI GFA cameras, we must first perform an analysis to determine the expected throughput and photometric zeropoint. The primary goal of this analysis is to predict the $r$ band AB magnitude of a source that would correspond to a total detected DESI GFA signal of 1 electron per second. The factors that contribute to determining the DESI GFA throughput are: the atmosphere, the Mayall telescope primary mirror reflectivity, the corrector throughput (including vignetting at the radius of the GFA cameras), the GFA $r$ band filter transmission profile and the GFA detector quantum efficiency (QE). These individual factors are overplotted together in Figure \ref{fig:throughput_factors}.
 
 \begin{figure*}[ht]
         \includegraphics[width=7.0in]{gfa_throughput_factors}
@@ -40,15 +35,13 @@ In order to validate the system throughput as measured by the DESI GFA cameras, 
     \label{fig:throughput_factors}
 \end{figure*}
 
-The atmospheric transmission is taken from a file called \verb|ZenithExtinction-KPNO.fits|, found in the desimodel product\footnote{\url{https://desi.lbl.gov/svn/code/desimodel/trunk/data/inputs/throughput/ZenithExtinction-KPNO.fits}}. The Mayall telescope primary mirror reflectivity and corrector throughput and vignetting were taken from ``DESI-347-v14 Throughput Noise SNR Calcs''. The GFA filter transmission was extracted from ``DESI-1297 GFA Filter verification data''. The GFA CCD QE was extracted from the e2v data sheet ``CCD230-42 Back Illuminated Scientific CCD Sensor'', specifically the plot on page 4. Note that the DESI GFA detectors have the `Basic midband coating' option (i.e., the green line in the data sheet's QE plot). The resulting total throughput is shown in Figure \ref{fig:total_throughput}.
+The atmospheric transmission is taken from a file called \verb|ZenithExtinction-KPNO.fits|, found in the desimodel product\footnote{\url{https://desi.lbl.gov/svn/code/desimodel/trunk/data/inputs/throughput/ZenithExtinction-KPNO.fits}}. The Mayall telescope primary mirror reflectivity, corrector throughput and vignetting were taken from DESI-347-v14 ``Throughput Noise SNR Calcs''. We adopt 1.574$^{\circ}$ for the radius of the GFA cameras based on template WCS solutions trained on Gaia star locations in real GFA images.  The GFA filter transmission was extracted from DESI-1297 ``GFA Filter verification data''. The GFA CCD QE was extracted from the e2v data sheet ``CCD230-42 Back Illuminated Scientific CCD Sensor'', specifically the plot on page 4. Note that the DESI GFA detectors have the `Basic midband coating' option (i.e., the green line in the data sheet's QE plot). The resulting total throughput is shown in Figure \ref{fig:total_throughput}.
 
 \begin{figure*}[ht]
         \includegraphics[width=7.0in]{gfa_total_throughput}
     \caption{Total GFA throughput as a function of wavelength.}
     \label{fig:total_throughput}
 \end{figure*}
-
-% try to figure out where the vignetting value came from...
 
 In order to use the total throughput curve to calculate a predicted zeropoint in AB magnitudes, we additionally need to take into account the mirror area. We adopt a value of 8.66 square meters for the Mayall primary mirror area based on DESI-347-v15. Combining the throughput curve, the definition of the AB magnitude system, and the Mayall primary mirror area we calculate a predicted GFA zeropoint of $r$ = 27.026 AB for a source with total detected signal of 1 electron per second (assuming airmass = 1). This computation is run using the following command:
 
@@ -57,11 +50,9 @@ In order to use the total throughput curve to calculate a predicted zeropoint in
 \noindent
 Where the \verb|calc_ci_zeropoint.pro| code can be found in my \verb|ci_throughput| GitHub repository\footnote{\url{https://github.com/ameisner/ci_throughput}}.
 
-% could add a table listing file name used for each component of the throughput
-
 \section{GFA Gain}
 
-Before we can compare on-sky GFA measurements to our predicted zeropoint, we need to have accurate knowledge of how to convert from ADU (units of the raw GFA data) to electrons. Lab-measured GFA gains are available in a series of DESI DocDB entries (see Table \ref{tab:gains}), and a set of Mayall dome screen data were also taken on 20191027 specifically to enable post-installation gain measurements. My gain measurements from the post-installation dome screen data are documented on the DESI wiki\footnote{\url{https://desi.lbl.gov/trac/wiki/Commissioning/Planning/gfachar/gain_20191027}}. The lab measurements and my dome screen measurements are listed in Table \ref{tab:gains}.
+Before we can compare on-sky GFA measurements to our predicted zeropoint, we need to have accurate knowledge of how to convert from ADU (units of the raw GFA data) to electrons. Lab-measured GFA gains are available in a series of DESI DocDB entries (see Table \ref{tab:gains}), and a set of Mayall dome screen data were also taken on 20191027 specifically to enable post-installation gain measurements. My gain measurements based on the post-installation dome screen data are documented on the DESI wiki\footnote{\url{https://desi.lbl.gov/trac/wiki/Commissioning/Planning/gfachar/gain_20191027}}. The lab gain measurements and my dome screen gain measurements are listed in Table \ref{tab:gains}.
 
 \begin{center}
 \begin{table}[ht]
@@ -108,55 +99,58 @@ FOCUS9 & 3 & F & 3.659 & 3.612 & DESI-4747-v2 & outer \\
 FOCUS9 & 3 & G & 3.823 & 3.763 & DESI-4747-v2 & outer \\
 FOCUS9 & 3 & H & 3.639 & 3.659 & DESI-4747-v2 & outer \\
 \end{tabular}
-\caption{Comparison of gain measurements from pre-installation lab data taken as part of the GFA acceptance process (R. Casas) and post-installation dome screen data taken on 20191027.}
+\caption{Comparison of gain measurements from pre-installation lab data taken as part of the GFA acceptance process (R. Casas) and post-installation dome screen data taken on 20191027. The final column lists the region of each amplifier used for my 20191027 gain measurement. All of each amplifier is used for the guide cameras, but for the focus cameras only the `outer' half of each amp is used, in order to avoid the shaded area near the camera center.}
 \label{tab:gains}
 \end{table}
 \end{center}
 
 % could take out FOCUS cameras from this table...
 
-My gain measurements based on the 20191027 dome screen data are in very good agreement with those based on the lab data, although the former are $\sim$0.9\% higher than the corresponding lab gain measurements in the median. David Kirkby has also analyzed the same 20191027 dome screen data and was able to obtain even better agreement with the lab gain measurements (DESI-5315). We therefore adopt the lab gain measurements compiled from the various GFA acceptance reports when comparing our predicted zeropoint to the on-sky measurements. It seems clear that we should not expect our knowledge of the gains to be a significant limitation in the comparison between measured and predicted zeropoints.
-
-% need to explain 'all' versus 'outer' terminology in rightmost column of gain summary table
+My gain measurements based on the 20191027 dome screen data are in very good agreement with those based on the lab data, although the former are $\sim$0.9\% higher than the corresponding lab gain measurements in the median. David Kirkby has also analyzed the same 20191027 dome screen data and was able to obtain even better agreement with the lab gain measurements (DESI-5315). We therefore adopt the lab gain measurements compiled from the various GFA acceptance reports when comparing our predicted zeropoint to the on-sky measurements. It seems clear that we should not expect our knowledge of the GFA gains to be a significant limitation in the comparison between measured and predicted zeropoints.
 
 \section{Input GFA On-sky Data}
 \label{sec:input_data}
 
-For this throughput study, we use a set of 22 GFA exposures taken on 20191025. The exposures have 21338 $\le$ EXPID $\le$ 21360, with EXPID = 21350 omitted because of its short 1 second exposure time. The program name (PROGRAM keyword header parameter) of this set of exposures is ``dense fields''. These exposures are all centered in the vicinity of (RA, Dec) =  (80$^{\circ}$, 30$^{\circ}$), which is near the Galactic anticenter at ($l_{gal}$, $b_{gal}$) $\sim$ (176, $-4$). These exposures were chosen for the following reasons:
+For this throughput study, we use a set of 22 GFA exposures taken on 20191025. The exposures have 21338 $\le$ EXPID $\le$ 21360, with EXPID = 21350 omitted because of its short 1 second exposure time. The program name (PROGRAM keyword header parameter) of this set of exposures is ``dense fields''. These exposures are all centered in the vicinity of (RA, Dec) =  (80$^{\circ}$, 30$^{\circ}$), which is near the Galactic anticenter at ($l_{gal}$, $b_{gal}$) $\approx$ (176, $-4$). These exposures were chosen for the following reasons:
 
 \begin{itemize}
 \item They were taken during a photometric time period.
-\item They were taken in reasonably good seeing -- the FWHM is typically
-\item They are taken in a region of high source density. This provides more sources to compare against PS1, better assurance of successful astrometric calibration, and enables good PSF modeling. 
+\item They were taken in reasonably good seeing. The median FWHM is 0.98$''$ (min = 0.94$''$, max = 1.49$''$, dispersion = 0.12$''$).
+\item They are taken in a region of high source density. This provides more sources per exposure to compare against PS1, better assurance of successful astrometric calibration, and also enables high-quality PSF modeling. 
 \item They are relatively long GFA exposures (the unique exposure times are 30 seconds and 60 seconds), further improving the density of well-detected sources.
-\item Very close to airmass = 1, minimizing impact of any errors in atmospheric transmission component of GFA throughput prediction.
+\item The airmass is very nearly 1, minimizing the impact of any inaccuracies in the atmospheric transmission component of GFA throughput prediction.
 \item All six cameras worth of guide GFA images are available for all exposures in this sequence.
-\item The exposures were dithered at a scale of $\sim$30$''$ per coordinate, so that we are not always sampling the same stars at the same GFA pixel locations during ever single exposure.
+\item The exposures were dithered at a scale of $\sim$30$''$ per coordinate, so that we are not always sampling the same stars at the same GFA pixel locations during every single exposure.
 \end{itemize}
 
-% perhaps in the future i can update the analysis to include checking the zeropoints of the focus cameras as well
-
-In this study we only consider the six in-focus guide cameras, and ignore the data from the four out of focus GFA cameras.
+In this study we only consider the six in-focus guide cameras, and ignore the four out of focus GFA cameras.
 
 \section{Source Catalogs}
 
-Source detection and astrometric calibration were performed with the \verb|gfa_reduce| GFA off-line reduction package for each camera of each GFA exposure discussed in $\S$\ref{sec:input_data}. Astrometric calibration is necessary in order to identify the correct PS1 match to each GFA detection. Astrometric calibration was successful for all cameras of all exposures. For this study, we perform aperture photometry in a 5 pixel radius circular (in pixel space) aperture. We then correct this aperture photometry to be as close as possible to ``total light''. This is accomplished by first building a PSF model for each guide camera of each GFA exposure, then using this PSF model to compute an aperture correction from the 5 pixel radius aperture to total light within the full extent of the PSF model, then multiplying the aperture photometry by this aperture correction factor. Each PSF model is 61 pixels on a side. The fluxes are measured in raw ADU so as to avoid baking in a specific flat field correction, given that different people may use different flat field corrections and/or that the master flat could evolve over time as more calibration data are obtained.
+Source detection and astrometric calibration were performed with the \verb|gfa_reduce| GFA off-line reduction package for each guide camera of each GFA exposure discussed in $\S$\ref{sec:input_data}. Astrometric calibration is necessary in order to identify the correct PS1 match to each GFA detection ($\S$\ref{sec:ps1}). Astrometric calibration was successful for all cameras of all exposures. For this study, we perform aperture photometry in a 5 pixel radius circular (in pixel space) aperture. We then correct this aperture photometry to be as close as possible to ``total light''. This is accomplished by first building a PSF model for each guide camera of each GFA exposure, then using this PSF model to compute an aperture correction from flux within the 5 pixel radius aperture to total light within the full extent of the PSF model, and finally multiplying the aperture photometry by this aperture correction factor. Each PSF model is 61 pixels on a side. The fluxes are measured in raw ADU so as to avoid baking in a specific flat field correction, given that different pipelines may use different flat field corrections and/or the master flat could evolve over time as more calibration data are obtained.
 
-The per-exposure catalogs have been concatenated and uploaded as a supplementary file \verb|filename.fits|. The aperture fluxes in raw ADU are in the column named COUNTS\_PER\_SECOND and the aperture correction factor is in a column named APCORR\_FAC.
+The per-exposure catalogs have been concatenated and uploaded as a supplementary file\footnote{row\_matched\_dense\_fields-gfa.all\_cameras.fits}. The aperture fluxes in raw ADU are in the column named COUNTS\_PER\_SECOND and the aperture correction factor is in a column named APCORR\_FAC.
 
-\section{Pan-STARRS Comparison}
+% do approx conversion of aperture size from pixels to asec in text of section above?
 
-The sky location of the frames used is outside of the DESI pre-imaging footprint, but does have Pan-STARRS $r$ band data available.
+\section{PS1 Photometry Comparison}
+\label{sec:ps1}
 
-% define m_inst
+The sky location of the data set used in this study is outside of the DESI pre-imaging footprint, but does have Pan-STARRS $r$ band data available. We match to PS1 using a radius of 1$''$. The row-matched table of PS1 counterparts is also uploaded as a supplementary file\footnote{row\_matched\_dense\_fields-ps1.all\_cameras.fits}. We define a GFA instrumental $r$ band magnitude as:
 
-% what is the match radius used?
+\begin{equation}
+r_{inst} = -2.5 \times \textrm{log}_{10}(\textrm{COUNTS\_PER\_SECOND} \times \textrm{APCORR\_FAC})
+\end{equation}
 
-Since the sky location being considered is in the Galactic plane and the comparison sources being used are not especially faint, we assume that all matched sources are pointlike stars rather than extended galaxies. The version of the PS1 catalog being used (`fitscat\_qz\_trim') was also constructed with a star-galaxy separation metric cut meant to retain only stars, further indicating the lack of a need for attempting to make source morphology corrections.
+The zeropoint is then simply the difference between $r_{ps1}$ and $r_{inst}$.
+
+Since the sky location being considered is in the Galactic plane and the comparison sources being used are not especially faint (see scatter plots in Appendix \ref{sec:scatter_plots}), we assume that all matched sources are pointlike stars rather than extended galaxies. The version of the PS1 catalog being used (`fitscat\_qz\_trim') was also constructed with a star-galaxy separation cut meant to retain only stars, further indicating the lack of a need for attempting to make source morphology corrections.
+
+The scatter plots of instrumental versus PS1 mags in Appendix \ref{sec:scatter_plots} show that, over the range of magnitudes used to fit the zeropoint (rightward of vertical yellow lines), the model of $r_{inst}   = r_{ps1} - zp$, with $zp$ being a scalar offset per-camera per-amp fits very well. This model is shown as the red line with slope of 1 in each Appendix \ref{sec:scatter_plots} scatter plot.
 
 \section{Zeropoint Values Obtained}
 
-Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints correspond to total light, night signal within some nominal aperture. The median zeropoint in terms of e-/second is $r$ = 27.062 AB. This is slightly (3.4\%) deeper than the predicted zeropoint of $r$ = 27.026 AB for a source with total detected signal of 1 e-/second.
+Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints correspond to total light rather than signal within some nominal aperture. The median zeropoint in terms of e-/second is $r$ = 27.062 AB. This is slightly (3.4\%) deeper than the predicted zeropoint of $r$ = 27.026 AB for a source with total detected signal of 1 e-/second.
 
 \begin{center}
 \begin{table}[ht]
@@ -193,18 +187,18 @@ GUIDE8 & H & 25.652 & 27.072 & 3.698 \\
 \end{center}
 
 \subsection{Confirming That ADU Zeropoints Track Gain as Expected}
-Amp pairs E/F and G/H should be at approximately the same radial distance from the focal plane center for all cameras. Assuming for each camera that within each of these amp pairs the average vignetting, QE and filter transmission are all the same, then the difference in zeropoint for a 1 ADU source should track the difference in gain, with larger gain corresponding lower (brighter) ADU zeropoint magnitude. Based on these assumptions and the measured gains, we can predict the difference in zeropoints for amp pairs E/F and G/H and check whether this correlates with the measured differences in zeropoints. The two scatter plots below summarize this analysis, with one plot for the E/F amp pair and one plot for the G/H amp pair. Each data point in each plot represents one guide GFA camera. The plots show that the measured ADU zeropoints do track fairly well with expectations based on the gain differences. The lab-measured GFA acceptance report gains were used in making these plots.
+Amp pairs E/F and G/H should be at approximately the same radial distance from the focal plane center for all cameras. Assuming for each camera that within each of these amp pairs the average vignetting, QE and filter transmission are all the same, then the difference in zeropoint for a 1 ADU source should track the difference in gain, with larger gain corresponding to a lower (brighter) ADU zeropoint magnitude. Based on these assumptions and the measured gains, we can predict the difference in zeropoints for amp pairs E/F and G/H and check whether this correlates with the measured differences in ADU zeropoints. The scatter plots in Figures \ref{fig:ampsEF} and \ref{fig:ampsGH} summarize this analysis, with one plot for the E/F amp pair and one plot for the G/H amp pair. Each data point in each plot represents one guide GFA camera. The plots show that the measured ADU zeropoints do track fairly well with expectations based on the gain differences. The lab-measured GFA acceptance report gains were used in making these plots.
 
 \begin{figure*}[ht]
         \includegraphics[width=7.0in]{zp_adu_gain_correlation-EF.png}
-    \caption{If we assume that the vignetting, QE, and filter transmission are the same for amps E and F within each guide camera, then the differences between the measured ADU zeropoints between these two amps within each guide camera should simply trace the differences in gain. Based on these assumptions and the the known ratio of gains in amps E and F, we can make a per-camera prediction of the difference in ADU zeropoints between amp E and amp F. This predicted ADU zeropoint difference is the horizontal axis in this plot. The measured difference in ADU zeropoints between amps E and F is then plotted on the vertical axis. Each white plus mark represents a single guide GFA camera. The red line is y = x, not a fit. For this exercise, we again use the lab-measured acceptance GFA gains. The measured zeropoint  differences between amps E and F do indeed trace the line y = x well --- the measured ADU zeropoints pass this sanity check.}
+    \caption{If we assume that the vignetting, QE, and filter transmission are the same for amps E and F within each guide camera, then the difference between the measured ADU zeropoints for these two amps within each guide camera should simply trace the difference in their gains. Based on these assumptions and the the known ratio of gains in amps E and F, we can make a per-camera prediction of the difference in ADU zeropoints between amp E and amp F. This predicted ADU zeropoint difference is the horizontal axis in this plot. The measured difference in ADU zeropoints between amps E and F is then plotted on the vertical axis. Each white plus mark represents a single guide GFA camera. The red line is y = x, not a fit. For this exercise, we again use the lab-measured acceptance GFA gains. The measured zeropoint  differences between amps E and F do indeed trace the line y = x well --- the measured ADU zeropoints pass this sanity check.}
     \label{fig:ampsEF}
 \end{figure*}
 
 \begin{figure*}[ht]
         \includegraphics[width=7.0in]{zp_adu_gain_correlation-GH.png}
     \caption{Same as Figure \ref{fig:ampsEF}, but for amps G and H.}
-    \label{fig:ampsEF}
+    \label{fig:ampsGH}
 \end{figure*}
 
 \appendix
@@ -216,8 +210,9 @@ A key assumption underlying our comparison of the measured GFA zeropoints to our
 To address this, I measured the length of star trails in the 5 second untracked exposure EXPID = 24467 at zenith. I find an average trail length in GUIDE2 and GUIDE7 of 62.4 asec. For comparison, the length of the sidereal day and Dec give me a prediction of 63.8 asec trails during 5 seconds. So the prediction is 2.3\% larger than the measurement. This could certainly be within the error margin of my measurement, but the agreement would be better if I assumed that EXPTIME is equal to the integration time plus the $\sim$100 ms time to shift the active image area's charge rather than simply the integration time (0.1 s / 5 s = 2\%). Regardless, this seems like quite good agreement, and any issue at the $\sim$100 ms level would result in a negligible change to my derived zeropoints, which are based on images with relatively long 30-60 second exposure times.
 
 \section{Per-camera, Per-amp Photometry Scatter Plots}
+\label{sec:scatter_plots}
 
-Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study. The vertical yellow line indicates the magnitude threshold fainter than which it was considered safe from potential saturation/nonlinearity to use the GFA magnitudes. In each case the red line is fixed to have a slope of unity (the slope is not fit as a free parameter), and the y axis offset is set to the median of the difference between the PS1 AB magnitudes and the instrumental magnitudes for (sufficiently faint) matched sources.
+Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study. The vertical yellow line indicates the magnitude threshold fainter than which GFA photometry was considered safe from potential saturation/nonlinearity. In each case the red line is fixed to have a slope of unity (the slope is not fit as a free parameter), and the y axis offset is set to the median of the difference between the PS1 AB magnitudes and the instrumental magnitudes for (sufficiently faint) matched sources.
 
 % say what the vertical yellow line means...
 % say what the red line means, emphasize that its slope is fixed to be exactly 1, not fit to match the data
