@@ -26,6 +26,7 @@ Aaron Meisner
 \end{center}
 
 \section{GFA Throughput Prediction}
+\label{sec:prediction}
 
 In order to validate the system throughput as measured by the DESI GFA cameras, we must first perform an analysis to determine the expected throughput and photometric zeropoint. The primary goal of this analysis is to predict the $r$ band AB magnitude of a source that would correspond to a total detected DESI GFA signal of 1 electron per second. The factors that contribute to determining the DESI GFA throughput are: the atmosphere, the Mayall telescope primary mirror reflectivity, the corrector throughput (including vignetting at the radius of the GFA cameras), the GFA $r$ band filter transmission profile and the GFA detector quantum efficiency (QE). These individual factors are overplotted together in Figure \ref{fig:throughput_factors}.
 
@@ -39,7 +40,7 @@ The atmospheric transmission is taken from a file called \verb|ZenithExtinction-
 
 \begin{figure*}[ht]
         \includegraphics[width=7.0in]{gfa_total_throughput}
-    \caption{Total GFA throughput as a function of wavelength.}
+    \caption{Total GFA throughput as a function of wavelength. The data shown in this figure have been uploaded as a supplementary file.}
     \label{fig:total_throughput}
 \end{figure*}
 
@@ -148,9 +149,9 @@ Since the sky location being considered is in the Galactic plane and the compari
 
 The scatter plots of instrumental versus PS1 mags in Appendix \ref{sec:scatter_plots} show that, over the range of magnitudes used to fit the zeropoint (rightward of vertical yellow lines), the model of $r_{inst}   = r_{ps1} - zp$, with $zp$ being a scalar offset per-camera per-amp fits very well. This model is shown as the red line with slope of 1 in each Appendix \ref{sec:scatter_plots} scatter plot.
 
-\section{Zeropoint Values Obtained}
+\section{Measured Zeropoint Values}
 
-Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints correspond to total light rather than signal within some nominal aperture. The median zeropoint in terms of e-/second is $r$ = 27.062 AB. This is slightly (3.4\%) deeper than the predicted zeropoint of $r$ = 27.026 AB for a source with total detected signal of 1 e-/second.
+Table \ref{tab:zps} lists the zeropoint values obtained in terms of both ADU/s and e-/s on a per-amp basis for all six guide GFA cameras. The values quoted in Table \ref{tab:zps} for each (camera, amp) pair are obtained by taking the median of the per-exposure zeropoint values derived for that (camera, amp) pair. The zeropoints in terms of ADU are applicable to the raw data --- they do not have any flat fielding baked in. In all cases the zeropoints are meant to correspond to total light rather than signal within some nominal aperture. The median zeropoint in terms of e-/second is $r$ = 27.062 AB. This is slightly (3.4\%) deeper than the predicted zeropoint ($\S$\ref{sec:prediction}) of $r$ = 27.026 AB for a source with total detected signal of 1 e-/second.
 
 \begin{center}
 \begin{table}[ht]
@@ -212,9 +213,6 @@ To address this, I measured the length of star trails in the 5 second untracked 
 \section{Per-camera, Per-amp Photometry Scatter Plots}
 \label{sec:scatter_plots}
 
-Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study. The vertical yellow line indicates the magnitude threshold fainter than which GFA photometry was considered safe from potential saturation/nonlinearity. In each case the red line is fixed to have a slope of unity (the slope is not fit as a free parameter), and the y axis offset is set to the median of the difference between the PS1 AB magnitudes and the instrumental magnitudes for (sufficiently faint) matched sources.
-
-% say what the vertical yellow line means...
-% say what the red line means, emphasize that its slope is fixed to be exactly 1, not fit to match the data
+Appended below is the full set of per-exposure, per-camera, per-amp scatter plots of GFA instrumental magnitudes versus PS1 $r$ band AB magnitudes for the set of exposures used during this study. The vertical yellow line indicates the magnitude threshold fainter than which GFA photometry was considered safe from potential saturation/nonlinearity. In each case the red line is fixed to have a slope of unity (the slope is not fit as a free parameter), and its y axis offset is the median of the difference between the GFA instrumental magnitudes and the PS1 AB magnitudes for (sufficiently faint) matched sources.
 
 \end{document}
