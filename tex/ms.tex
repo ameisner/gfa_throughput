@@ -204,6 +204,14 @@ Amp pairs E/F and G/H should be at approximately the same radial distance from t
 
 \appendix
 
+\section{GFA k term}
+The same code used to predict the GFA zeropoint at airmass = 1 can also be used to predict the $k$-term (magnitudes per airmass of atmospheric extinction), which enters into the calculation of transparencies at sky locations away from zenith. We can estimate the $k$-term by simply taking the difference of the GFA zeropoint magnitude predicted for the artificial case of airmass = 0 and the previously predicted GFA zeropoint magnitude for airmass = 1. For the former, we again use the \verb|ci_throughput| code:
+
+\noindent
+\verb|calc_ci_zeropoint, /gfa, airmass=0|
+
+This yields an atmosphere-free predicted zeropoint mag of $r$ = 27.140 AB. The $k$-term is therefore 27.140 $-$ 27.026 = 0.114 magnitudes per airmass. This value is quite similar to the $r$ band $k$-term value of 0.1 magnitudes per airmass adopted by the DESI pre-imaging survey codes \verb|mosstat.pro|\footnote{\url{https://desi.lbl.gov/trac/browser/decam/code/observing/trunk/pro/mosstat.pro\#L293}}, \verb|decstat.pro|\footnote{\url{https://desi.lbl.gov/trac/browser/decam/code/observing/trunk/pro/decstat.pro\#L286}} and \verb|bokstat.pro|\footnote{\url{https://desi.lbl.gov/trac/browser/decam/code/observing/trunk/pro/bokstat.pro\#L245}}.
+
 \section{Confirming GFA EXPTIME}
 
 A key assumption underlying our comparison of the measured GFA zeropoints to our zeropoint prediction is that we are using the correct GFA exposure time in computing the signal as a rate in detected electrons per second. GFA exposure times in seconds are accessed via the EXPTIME header keyword. Given the discussion about GFA timestamp oddities (e.g., [desi-commiss 2976]) and the unshuttered cameras, I decided to check how well the integration time agrees with the reported EXPTIME. It's also particularly interesting to double check EXPTIME because there are relatively few ways that the measured GFA zeropoint could be slightly \textit{deeper} than the prediction (as we have found, by $\sim$3-4\%), but one such possibility is that the true GFA integration time is longer than what we are assuming based on the reported GFA EXPTIME values.  
